@@ -5,15 +5,37 @@
     width: 100%;
     max-width: 1000px;
     margin: 100px auto;
+
 }
 
 .cards {
     width: 100%;
     aspect-ratio: 5/6;
-    background-color: brown;
     border-radius: 6px;
+    position: relative;
+    transition: all 700ms ease;
+    transform-style: preserve-3d;
 }
 
 .face {
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+}
 
+.frontcard {
+    background-image: url(../Images/nitgh-king.png);
+    transform: rotateY(180deg);
+}
+
+.backcard {
+    background-image: url('../Images/TronoBack.jpg');
+    backface-visibility: hidden;
+}
+
+.cards:hover {
+    transform: rotateY(180deg);
 }
