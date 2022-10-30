@@ -1,6 +1,6 @@
 .cardsgrid {
     grid-template-columns: repeat(6, 1fr);
-    gap: 15px;
+    gap: 8px;
     display: grid;
     width: 100%;
     max-width: 1000px;
@@ -24,10 +24,11 @@
     position: absolute;
     background-size: cover;
     background-position: center;
+    background-color: black;
 }
 
 .frontcard {
-    background-image: url(../Images/nitgh-king.png);
+     
     transform: rotateY(180deg);
 }
 
@@ -36,6 +37,6 @@
     backface-visibility: hidden;
 }
 
-.cards:hover {
-    transform: rotateY(180deg);
+.card-reveal {
+    transform: rotateY(180deg);    
 }
