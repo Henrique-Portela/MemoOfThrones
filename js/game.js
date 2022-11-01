@@ -1,6 +1,6 @@
 const cardsGrid = document.querySelector('.cardsgrid')
 const characterArr = ['Arya', 'Brienne', 'Cersei', 'Daenerys', 'Grey-Worm', 'Jon', 'Missandei', 'Ned', 'nitgh-king', 'Samwell', 'Tormund', 'Tyrion']
-
+const playerName = document.querySelector('.player')
 
 function createElement(tag, className) {
     const element = document.createElement(tag);
@@ -18,6 +18,7 @@ function createCard(character) {
     card.appendChild(frontCard);
     card.appendChild(backCard);
     card.addEventListener('click', cardReveal)
+    card.setAttribute('data-character', character);
     
     return card
 
@@ -40,6 +41,38 @@ function createGame() {
 let cardOne = ''
 let cardTwo = ''
 
+function endGame() {
+    const cardsOff = document.querySelectorAll('.card-disable')
+
+    if(cardsOff.length === 24) {
+        alert('Congratulations!!! The iron throne belongs to you')
+    }
+}
+
+function verifyCards() {
+    const characterOne = cardOne.getAttribute('data-character');
+    const characterTwo = cardTwo.getAttribute('data-character');
+
+    if(characterOne === characterTwo) {
+        cardOne.firstChild.classList.add('card-disable');
+        cardTwo.firstChild.classList.add('card-disable');
+        cardOne = '';
+        cardTwo = '';
+
+        endGame()
+
+    } else {
+        setTimeout(() => {
+            cardOne.classList.remove('card-reveal');
+            cardTwo.classList.remove('card-reveal');
+            cardOne = '';
+            cardTwo = '';
+
+        }, 900)
+        
+    }
+}
+
 const cardReveal = ({ target }) => {
     if(target.parentNode.className.includes('card-reveal')) {
         return;
@@ -51,12 +84,19 @@ const cardReveal = ({ target }) => {
     } else if (cardTwo === '') {
         target.parentNode.classList.add('card-reveal');
         cardTwo = target.parentNode;
+
+        verifyCards();
     }
-    
-   
 }
 
-createGame()
+window.onload = () => {
+    const saveName = localStorage.getItem('Player');
+    playerName.innerHTML = `Player: ${saveName}`
+    
+    createGame()
+}
+
+
 
 
 
