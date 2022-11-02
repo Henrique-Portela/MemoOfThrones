@@ -2,6 +2,15 @@ const cardsGrid = document.querySelector('.cardsgrid')
 const characterArr = ['Arya', 'Brienne', 'Cersei', 'Daenerys', 'Grey-Worm', 'Jon', 'Missandei', 'Ned', 'nitgh-king', 'Samwell', 'Tormund', 'Tyrion']
 const playerName = document.querySelector('.player')
 
+this.gameTimer = document.querySelector('.timer');
+
+this.timeCount = setInterval(() => {
+    this.gameTimer.innerHTML --
+    if(this.gameTimer.innerHTML < 1) {
+        clearInterval(this.timeCount)
+    }
+}, 1000);
+
 function createElement(tag, className) {
     const element = document.createElement(tag);
     element.className = className;
@@ -43,11 +52,14 @@ let cardTwo = ''
 
 function endGame() {
     const cardsOff = document.querySelectorAll('.card-disable')
-
+    
     if(cardsOff.length === 24) {
-        alert('Congratulations!!! The iron throne belongs to you')
+        clearTimeout(this.timeCount);
+        //alert('Congratulations!!! The iron throne belongs to you')
     }
 }
+
+
 
 function verifyCards() {
     const characterOne = cardOne.getAttribute('data-character');
@@ -58,8 +70,9 @@ function verifyCards() {
         cardTwo.firstChild.classList.add('card-disable');
         cardOne = '';
         cardTwo = '';
-
+        
         endGame()
+        gameOver()
 
     } else {
         setTimeout(() => {
@@ -89,9 +102,13 @@ const cardReveal = ({ target }) => {
     }
 }
 
+    
+
+
 window.onload = () => {
     const saveName = localStorage.getItem('Player');
     playerName.innerHTML = `Player: ${saveName}`
+    
     
     createGame()
 }
