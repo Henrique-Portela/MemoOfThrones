@@ -3,11 +3,17 @@ const characterArr = ['Arya', 'Brienne', 'Cersei', 'Daenerys', 'Grey-Worm', 'Jon
 const playerName = document.querySelector('.player')
 
 this.gameTimer = document.querySelector('.timer');
+this.doubleCharacter = [...characterArr, ...characterArr]
+
 
 this.timeCount = setInterval(() => {
     this.gameTimer.innerHTML --
-    if(this.gameTimer.innerHTML < 1) {
+    if(this.gameTimer.innerHTML < 1 ) {
         clearInterval(this.timeCount)
+        setTimeout(() => {
+            alert('GAME OVER!')
+        }, 1000)
+        return cardsGrid.innerHTML = null
     }
 }, 1000);
 
@@ -35,8 +41,8 @@ function createCard(character) {
 
 function createGame() {
 
-    const doubleCharacter = [...characterArr, ...characterArr]
-    const randomCharacter = doubleCharacter.sort(function(a, b) {
+    
+    const randomCharacter = this.doubleCharacter.sort(function(a, b) {
         return 0.5 - Math.random()
     })
 
@@ -51,15 +57,17 @@ let cardOne = ''
 let cardTwo = ''
 
 function endGame() {
+    
     const cardsOff = document.querySelectorAll('.card-disable')
     
     if(cardsOff.length === 24) {
         clearTimeout(this.timeCount);
-        //alert('Congratulations!!! The iron throne belongs to you')
+        setTimeout(() => {
+            alert('Congratulations!!! The iron throne belongs to you')
+        }, 1000)
+        
     }
 }
-
-
 
 function verifyCards() {
     const characterOne = cardOne.getAttribute('data-character');
@@ -72,7 +80,6 @@ function verifyCards() {
         cardTwo = '';
         
         endGame()
-        gameOver()
 
     } else {
         setTimeout(() => {
@@ -84,6 +91,7 @@ function verifyCards() {
         }, 900)
         
     }
+    
 }
 
 const cardReveal = ({ target }) => {
@@ -111,6 +119,7 @@ window.onload = () => {
     
     
     createGame()
+    
 }
 
 
