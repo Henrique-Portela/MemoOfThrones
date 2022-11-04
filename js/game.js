@@ -1,6 +1,10 @@
 const cardsGrid = document.querySelector('.cardsgrid')
 const characterArr = ['Arya', 'Brienne', 'Cersei', 'Daenerys', 'Grey-Worm', 'Jon', 'Missandei', 'Ned', 'nitgh-king', 'Samwell', 'Tormund', 'Tyrion']
 const playerName = document.querySelector('.player')
+const gameAudio = document.querySelector('.game-audio')
+
+gameAudio.volume = .15
+gameAudio.play()
 
 this.gameTimer = document.querySelector('.timer');
 this.doubleCharacter = [...characterArr, ...characterArr]
@@ -13,8 +17,13 @@ this.timeCount = setInterval(() => {
         setTimeout(() => {
             alert('GAME OVER!')
         }, 1000)
-        return cardsGrid.innerHTML = null
+        gameAudio.pause()
+        
+        return setTimeout(() => {
+            cardsGrid.innerHTML = null
+        }, 1000) 
     }
+    
 }, 1000);
 
 function createElement(tag, className) {
@@ -35,12 +44,12 @@ function createCard(character) {
     card.addEventListener('click', cardReveal)
     card.setAttribute('data-character', character);
     
+    
     return card
-
+    
 }
 
 function createGame() {
-
     
     const randomCharacter = this.doubleCharacter.sort(function(a, b) {
         return 0.5 - Math.random()
@@ -51,6 +60,7 @@ function createGame() {
     const cardGame = createCard(randomCharacter[i]);
     cardsGrid.appendChild(cardGame)
     }
+    
 }
 
 let cardOne = ''
@@ -64,6 +74,13 @@ function endGame() {
         clearTimeout(this.timeCount);
         setTimeout(() => {
             alert('Congratulations!!! The iron throne belongs to you')
+            
+        }, 1000)
+    }
+
+    if(cardsOff.length === 24) {
+        setInterval(() => {
+            gameAudio.pause()
         }, 1000)
         
     }
@@ -117,9 +134,7 @@ window.onload = () => {
     const saveName = localStorage.getItem('Player');
     playerName.innerHTML = `Player: ${saveName}`
     
-    
     createGame()
-    
 }
 
 
